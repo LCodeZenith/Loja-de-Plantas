@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="Folhagem: plantas cultivadas em Petrópolis, entregues em vasos de cerâmica com guia de rega.">
+  <title>Folhagem — plantas para sua casa</title>
+
+  <!-- Ícone da aba (emoji em SVG embutido, sem arquivo extra) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🪴%3C/text%3E%3C/svg%3E">
+
+  <!-- Fontes do Google: Fraunces (títulos) e Figtree (texto) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Figtree:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+  <!-- ============================================================
+       CABEÇALHO
+       ============================================================ -->
+  <header>
+    <div class="container">
+      <a class="logotipo" href="#">Folhagem</a>
+      <span id="saudacao" class="oculto"></span>
+      <button class="botao botao--contorno" id="botaoAutenticacao">Entrar</button>
+      <button class="botao botao--destaque" id="botaoCarrinho" aria-label="Abrir carrinho">
+        Carrinho (<span id="contadorItens">0</span>)
+      </button>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       CONTEÚDO PRINCIPAL
+       ============================================================ -->
+  <main class="container">
+
+    <!-- Apresentação -->
+    <section class="apresentacao">
+      <div>
+        <h1>Plantas que vivem bem no seu apartamento.</h1>
+        <p>Cultivadas em Petrópolis, entregues em vasos de cerâmica com guia de rega. Se a planta não pegar em 30 dias, trocamos.</p>
+        <a class="botao botao--link" href="#loja">Ver plantas</a>
+        <div class="vantagens">
+          <span>Frete grátis acima de R$ 150</span>
+          <span>Troca em 30 dias</span>
+        </div>
+      </div>
+      <div class="ilustracao" aria-hidden="true">🪴</div>
+    </section>
+
+    <!-- Vitrine de produtos (preenchida via JavaScript) -->
+    <h2 id="loja">Plantas à venda</h2>
+    <div class="filtros" id="filtros"></div>
+    <div class="grade-produtos" id="gradeProdutos"></div>
+  </main>
+
+  <!-- ============================================================
+       RODAPÉ
+       ============================================================ -->
+  <footer>
+    <div class="container">
+      © 2026 Folhagem. Loja de demonstração: os dados de cadastro ficam apenas neste navegador.
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       CARRINHO LATERAL
+       ============================================================ -->
+  <div class="fundo-escuro" id="fundoEscuro"></div>
+
+  <aside class="carrinho-lateral" id="carrinhoLateral" aria-label="Carrinho" aria-hidden="true">
+    <div class="carrinho-cabecalho">
+      <h2 class="carrinho-titulo">Seu carrinho</h2>
+      <button class="botao botao--contorno" id="botaoFecharCarrinho">Fechar</button>
+    </div>
+
+    <div class="itens-carrinho" id="itensCarrinho"></div>
+
+    <div class="total-carrinho">
+      <span>Total</span>
+      <span id="totalCarrinho">R$ 0,00</span>
+    </div>
+    <button class="botao" id="botaoFinalizarCompra">Finalizar compra</button>
+  </aside>
+
+  <!-- ============================================================
+       DIÁLOGO DE CONTA (LOGIN E CADASTRO)
+       ============================================================ -->
+  <dialog id="dialogoConta">
+    <h2 class="dialogo-titulo">Sua conta</h2>
+
+    <div class="abas" role="tablist">
+      <button role="tab" id="abaEntrar" aria-selected="true">Entrar</button>
+      <button role="tab" id="abaCadastro" aria-selected="false">Criar conta</button>
+    </div>
+
+    <!-- Formulário de login -->
+    <form id="formularioLogin" novalidate>
+      <label>E-mail
+        <input type="email" id="loginEmail" autocomplete="email">
+      </label>
+      <label>Senha
+        <input type="password" id="loginSenha" autocomplete="current-password">
+      </label>
+      <p class="mensagem-erro" id="loginErro" role="alert"></p>
+      <button class="botao botao--largo botao-enviar">Entrar</button>
+    </form>
+
+    <!-- Formulário de cadastro -->
+    <form id="formularioCadastro" class="oculto" novalidate>
+      <label>Nome completo
+        <input id="cadastroNome" autocomplete="name">
+      </label>
+      <p class="mensagem-erro" data-campo="cadastroNome"></p>
+
+      <label>E-mail
+        <input type="email" id="cadastroEmail" autocomplete="email">
+      </label>
+      <p class="mensagem-erro" data-campo="cadastroEmail"></p>
+
+      <label>CPF
+        <input id="cadastroCpf" inputmode="numeric" placeholder="000.000.000-00" maxlength="14">
+      </label>
+      <p class="mensagem-erro" data-campo="cadastroCpf"></p>
+
+      <label>Senha (mínimo 6 caracteres)
+        <input type="password" id="cadastroSenha" autocomplete="new-password">
+      </label>
+      <div class="medidor-senha"><i id="medidorSenha"></i></div>
+      <p class="mensagem-erro" data-campo="cadastroSenha"></p>
+
+      <label>Repita a senha
+        <input type="password" id="cadastroConfirmarSenha" autocomplete="new-password">
+      </label>
+      <p class="mensagem-erro" data-campo="cadastroConfirmarSenha"></p>
+
+      <button class="botao botao--largo botao-enviar">Criar conta</button>
+    </form>
+
+    <button class="botao botao--contorno botao--largo botao-cancelar" id="botaoFecharDialogo">Cancelar</button>
+  </dialog>
+
+  <!-- Aviso temporário (toast) -->
+  <div class="aviso" id="aviso" role="status"></div>
+
+  <!-- ============================================================
+       SCRIPTS
+       A ordem importa: cada arquivo usa funções/variáveis dos anteriores.
+         1. dados.js          Produtos e chaves do localStorage
+         2. utilitarios.js    Funções de apoio (moeda, aviso, storage)
+         3. estado.js         Variáveis de estado da aplicação
+         4. vitrine.js        Filtros e cartões de produto
+         5. carrinho.js       Carrinho de compras
+         6. autenticacao.js   Login, cadastro e sessão
+         7. main.js           Inicialização (primeira renderização)
+       ============================================================ -->
+  <script src="js/dados.js"></script>
+  <script src="js/utilitarios.js"></script>
+  <script src="js/estado.js"></script>
+  <script src="js/vitrine.js"></script>
+  <script src="js/carrinho.js"></script>
+  <script src="js/autenticacao.js"></script>
+  <script src="js/main.js"></script>
+</body>
+
+</html>

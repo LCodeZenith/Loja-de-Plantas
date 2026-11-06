@@ -1,0 +1,505 @@
+/* ============================================================
+   Folhagem — estilos
+   Índice:
+     1. Variáveis de cor (tema claro e escuro)
+     2. Reset e base
+     3. Layout geral (container, cabeçalho, rodapé)
+     4. Botões
+     5. Seção de apresentação (hero)
+     6. Vitrine (filtros e cartões de produto)
+     7. Carrinho lateral
+     8. Diálogo de conta (login / cadastro)
+     9. Aviso temporário (toast)
+    10. Utilitários e responsividade
+   ============================================================ */
+
+/* ---------- 1. VARIÁVEIS DE COR ---------- */
+:root {
+  --cor-fundo: #30144a;
+  --cor-superficie: #572828;
+  --cor-texto: #cedbd4;
+  --cor-texto-suave: #fcfbff;
+  --cor-marca: #8152af;
+  --cor-destaque: #ebc326;
+  --cor-linha: #D3DCCD;
+  --cor-erro: #B3261E;
+
+  /* Ajustes para telas com "notch" (iPhone etc.) */
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Tema escuro automático (segue a preferência do sistema) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --cor-fundo: #153423;
+    --cor-superficie: #f0edf9;
+    --cor-texto: #8d4dce;
+    --cor-texto-suave: #b4afbf;
+    --cor-marca: #e6e3e9;
+    --cor-linha: #131514;
+    --cor-erro: #FF8A80;
+  }
+}
+
+/* ---------- 2. RESET E BASE ---------- */
+html {
+  scroll-padding-top: env(safe-area-inset-top, 0px);
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--cor-fundo);
+  color: var(--cor-texto);
+  font: 400 1rem/1.55 Figtree, system-ui, sans-serif;
+}
+
+h1, h2, h3 {
+  font-family: Fraunces, Georgia, serif;
+  line-height: 1.1;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
+  margin: 48px 0 16px;
+}
+
+button, input {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid var(--cor-destaque);
+  outline-offset: 2px;
+}
+
+/* ---------- 3. LAYOUT GERAL ---------- */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+header {
+  position: sticky;
+  top: env(safe-area-inset-top, 0px);
+  z-index: 5;
+  background: var(--cor-fundo);
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+header .container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  height: 64px;
+}
+
+.logotipo {
+  font: 800 1.5rem Fraunces, serif;
+  color: var(--cor-marca);
+  margin-right: auto;
+  text-decoration: none;
+}
+
+footer {
+  margin-top: 64px;
+  border-top: 1px solid var(--cor-linha);
+  padding: 28px 0;
+  color: var(--cor-texto-suave);
+  font-size: .9rem;
+}
+
+/* ---------- 4. BOTÕES ---------- */
+.botao {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 18px;
+  font-weight: 700;
+  cursor: pointer;
+  background: var(--cor-marca);
+  color: #fff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .botao {
+    color: #0F1A14;
+  }
+}
+
+.botao--contorno {
+  background: transparent;
+  color: var(--cor-texto);
+  border: 1.5px solid var(--cor-linha);
+}
+
+.botao--destaque {
+  background: var(--cor-destaque);
+  color: #14281D;
+}
+
+.botao--link {
+  text-decoration: none;
+  display: inline-block;
+}
+
+.botao--largo {
+  width: 100%;
+}
+
+.botao-enviar {
+  margin-top: 8px;
+}
+
+.botao-cancelar {
+  margin-top: 10px;
+}
+
+.botao:disabled {
+  opacity: .5;
+  cursor: not-allowed;
+}
+
+/* ---------- 5. SEÇÃO DE APRESENTAÇÃO (HERO) ---------- */
+.apresentacao {
+  padding: 64px 0 48px;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+.apresentacao h1 {
+  font-size: clamp(2.4rem, 6vw, 4.4rem);
+  font-weight: 800;
+  letter-spacing: -.02em;
+}
+
+.apresentacao p {
+  max-width: 46ch;
+  color: var(--cor-texto-suave);
+  font-size: 1.1rem;
+  margin: 18px 0 26px;
+}
+
+.apresentacao .ilustracao {
+  font-size: min(38vw, 230px);
+  text-align: center;
+  background: var(--cor-superficie);
+  border-radius: 50% 50% 24px 24px;
+  padding: 20px 0;
+  border: 1px solid var(--cor-linha);
+}
+
+.vantagens {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+  color: var(--cor-texto-suave);
+  font-size: .95rem;
+  margin-top: 22px;
+}
+
+/* ---------- 6. VITRINE ---------- */
+.filtros {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+}
+
+.filtro {
+  border: 1.5px solid var(--cor-linha);
+  background: transparent;
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+
+.filtro[aria-pressed="true"] {
+  background: var(--cor-texto);
+  color: var(--cor-fundo);
+  border-color: var(--cor-texto);
+}
+
+.grade-produtos {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.cartao-produto {
+  background: var(--cor-superficie);
+  border: 1px solid var(--cor-linha);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.cartao-produto .imagem {
+  font-size: 4.5rem;
+  text-align: center;
+  padding: 22px 0;
+  background: var(--cor-fundo-planta, #E3EBDD); /* definido em linha por produto */
+}
+
+.cartao-produto .corpo {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+}
+
+.cartao-produto h3 {
+  font-size: 1.2rem;
+}
+
+.cartao-produto small {
+  color: var(--cor-texto-suave);
+}
+
+.cartao-produto .linha-preco {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 10px;
+}
+
+.preco {
+  font-weight: 700;
+  font-size: 1.15rem;
+}
+
+/* ---------- 7. CARRINHO LATERAL ---------- */
+.fundo-escuro {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 14, .5);
+  z-index: 20;
+  display: none;
+}
+
+.fundo-escuro.ativo {
+  display: block;
+}
+
+.carrinho-lateral {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(400px, 100%);
+  background: var(--cor-superficie);
+  z-index: 21;
+  transform: translateX(100%);
+  transition: transform .25s;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  padding-top: calc(20px + env(safe-area-inset-top, 0px));
+}
+
+.carrinho-lateral.ativo {
+  transform: none;
+}
+
+.carrinho-cabecalho {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.carrinho-titulo {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.itens-carrinho {
+  flex: 1;
+  overflow: auto;
+  margin: 14px 0;
+}
+
+.item-carrinho {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--cor-linha);
+}
+
+.item-carrinho .emoji {
+  font-size: 2rem;
+}
+
+.quantidade {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 4px;
+}
+
+.quantidade button {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1.5px solid var(--cor-linha);
+  background: none;
+  cursor: pointer;
+}
+
+.total-carrinho {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+}
+
+.carrinho-vazio {
+  color: var(--cor-texto-suave);
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* ---------- 8. DIÁLOGO DE CONTA (LOGIN / CADASTRO) ---------- */
+dialog {
+  border: 0;
+  border-radius: 22px;
+  padding: 26px;
+  width: min(420px, calc(100% - 32px));
+  background: var(--cor-superficie);
+  color: var(--cor-texto);
+}
+
+dialog::backdrop {
+  background: rgba(10, 20, 14, .55);
+}
+
+.dialogo-titulo {
+  font-size: 1.6rem;
+  margin: 0;
+}
+
+.abas {
+  display: flex;
+  gap: 4px;
+  background: var(--cor-fundo);
+  border-radius: 999px;
+  padding: 4px;
+  margin: 14px 0 18px;
+}
+
+.abas button {
+  flex: 1;
+  border: 0;
+  background: none;
+  border-radius: 999px;
+  padding: 8px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.abas button[aria-selected="true"] {
+  background: var(--cor-superficie);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, .15);
+}
+
+label {
+  display: block;
+  font-weight: 500;
+  font-size: .92rem;
+  margin-top: 12px;
+}
+
+input {
+  width: 100%;
+  margin-top: 4px;
+  padding: 11px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--cor-linha);
+  background: var(--cor-fundo);
+}
+
+input[aria-invalid="true"] {
+  border-color: var(--cor-erro);
+}
+
+.mensagem-erro {
+  color: var(--cor-erro);
+  font-size: .85rem;
+  min-height: 1.2em;
+  margin: 2px 0 0;
+}
+
+/* Barra de força da senha */
+.medidor-senha {
+  height: 5px;
+  border-radius: 3px;
+  background: var(--cor-linha);
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.medidor-senha i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--cor-erro);
+  transition: width .2s, background .2s;
+}
+
+/* ---------- 9. AVISO TEMPORÁRIO (TOAST) ---------- */
+.aviso {
+  position: fixed;
+  left: 50%;
+  bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+  transform: translate(-50%, 120px);
+  background: var(--cor-texto);
+  color: var(--cor-fundo);
+  padding: 12px 20px;
+  border-radius: 999px;
+  z-index: 40;
+  transition: transform .25s;
+  max-width: calc(100% - 32px);
+}
+
+.aviso.ativo {
+  transform: translate(-50%, 0);
+}
+
+/* ---------- 10. UTILITÁRIOS E RESPONSIVIDADE ---------- */
+.oculto {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .apresentacao {
+    grid-template-columns: 1fr;
+    padding-top: 36px;
+  }
+
+  .apresentacao .ilustracao {
+    order: -1;
+    font-size: 120px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
